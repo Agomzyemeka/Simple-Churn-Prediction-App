@@ -118,7 +118,7 @@ if 'best_model' in locals() and 'scaler' in locals():
                         output = BytesIO()
                         writer = pd.ExcelWriter(output, engine='xlsxwriter')
                         df.to_excel(writer, index=False, sheet_name='Sheet1')
-                        writer.save()  # Save the writer
+                        writer.close()  # Properly close the writer
                         processed_data = output.getvalue()
                         return processed_data
 
