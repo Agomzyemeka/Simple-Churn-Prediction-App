@@ -17,6 +17,7 @@ Welcome to the Simple Churn Prediction App! This app is designed to predict whet
 ## Using the App
 You can use the app to predict customer churn by inputting various customer details. The app will then use the trained model to make a prediction. Here’s how you can use it:
 
+### Single Customer Prediction
 1. **CreditScore**: Enter the customer's credit score.
 2. **Geography**: Select the customer's country (France, Germany, or Spain).
 3. **Gender**: Select the customer's gender (Male or Female).
@@ -28,11 +29,17 @@ You can use the app to predict customer churn by inputting various customer deta
 9. **IsActiveMember**: Select whether the customer is an active member (Yes or No).
 10. **EstimatedSalary**: Enter the customer's estimated salary.
 
+### Batch Prediction
+1. **Upload File**: Click on the 📁 icon to upload a CSV or Excel file containing multiple customer details.
+2. **View Results**: The app will display the predictions for each customer in the file.
+3. **Download Report**: Click on the 📥 icon to download the prediction results as an Excel report.
+
 ### Steps to Use the App
 1. **Input Values**: Fill in the required fields in the app.
 2. **Predict**: Click the predict button to get the prediction.
 3. **View Results**: The app will display whether the customer is likely to churn or not.
-
+   
+You can access the 'generated_customer_data.csv' in the repo to run test on batch prediction
 You can access the app using this link: [Simple Churn Prediction App](https://simple-churn-prediction-app.streamlit.app/).
 
 ## How the Model Works
