@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
+from io import BytesIO
 
 # Load the saved model and scaler with error handling
 model_path = os.path.join(os.getcwd(), 'best_model_Random Forest.pkl')
@@ -29,7 +30,8 @@ st.header('Enter customer details:')
 
 # Check if both model and scaler were successfully loaded
 if 'best_model' in locals() and 'scaler' in locals():
-    # User inputs
+    # Single input prediction
+    st.subheader('Single Customer Prediction')
     CreditScore = st.number_input('Credit Score', min_value=300, max_value=900, value=600)
     Geography = st.selectbox('Geography', ('France', 'Spain', 'Germany'))
     Gender = st.selectbox('Gender', ('Male', 'Female'))
@@ -71,5 +73,62 @@ if 'best_model' in locals() and 'scaler' in locals():
             st.write('The customer is likely to churn.')
         else:
             st.write('The customer is not likely to churn.')
-else:
-    st.error("Model or scaler could not be loaded. Please check the log for details.")
+
+    st.subheader('Batch Prediction')
+
+    # File upload
+    uploaded_file = st.file_uploader("Choose a file (CSV or Excel)", type=["csv", "xlsx"])
+    if uploaded_file is not None:
+        try:
+            if uploaded_file.name.endswith('.csv'):
+                data = pd.read_csv(uploaded_file)
+            else:
+                data = pd.read_excel(uploaded_file)
+            
+            st.write("File successfully uploaded!")
+            st.write(data.head())
+
+            # Add a 'CustomerName' column to the DataFrame for identification
+            if 'CustomerName' not in data.columns:
+                st.error("The uploaded file must contain a 'CustomerName' column.")
+            else:
+                # Ensure the required columns are in the dataframe
+                required_columns = ['CustomerName', 'CreditScore', 'Geography', 'Gender', 'Age', 'Tenure', 'Balance', 'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary']
+                if not all(col in data.columns for col in required_columns):
+                    st.error("The uploaded file must contain the following columns: " + ", ".join(required_columns))
+                else:
+                    # Convert categorical inputs to numerical
+                    data['Geography'] = data['Geography'].map(Geography_dict)
+                    data['Gender'] = data['Gender'].map(Gender_dict)
+                    data['HasCrCard'] = data['HasCrCard'].map(HasCrCard_dict)
+                    data['IsActiveMember'] = data['IsActiveMember'].map(IsActiveMember_dict)
+
+                    # Standardize the input data
+                    input_data_scaled = scaler.transform(data.drop(columns=['CustomerName']))
+
+                    # Predict churn
+                    predictions = best_model.predict(input_data_scaled)
+                    data['Prediction'] = ['Churn' if pred == 1 else 'No Churn' for pred in predictions]
+
+                    # Show predictions
+                    st.write(data[['CustomerName', 'Prediction']])
+
+                    # Button to download the predictions
+                    def to_excel(df):
+                        output = BytesIO()
+                        writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                        df.to_excel(writer, index=False, sheet_name='Sheet1')
+                        writer.save()
+                        processed_data = output.getvalue()
+                        return processed_data
+
+                    df_xlsx = to_excel(data[['CustomerName', 'Prediction']])
+
+                    st.download_button(label='📥 Download Predictions',
+                                       data=df_xlsx,
+                                       file_name='churn_predictions.xlsx')
+
+        except Exception as e:
+            st.error(f"Error processing file: {str(e)}")
+
+st.write("This app was created by Chukwuemeka Agomoh. Thanks!")
