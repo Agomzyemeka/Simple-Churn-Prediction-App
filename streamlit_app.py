@@ -67,7 +67,9 @@ if 'best_model' in locals() and 'scaler' in locals():
     # Predict churn
     if st.button('Predict'):
         prediction = best_model.predict(input_data_scaled)
-        result = 'Yes' if prediction[0] == 1 else 'No'
-        st.write(f'Will the customer churn? {result}')
+        if prediction[0] == 1:
+            st.write('The customer is likely to churn.')
+        else:
+            st.write('The customer is not likely to churn.')
 else:
     st.error("Model or scaler could not be loaded. Please check the log for details.")
