@@ -75,19 +75,8 @@ if 'best_model' in locals() and 'scaler' in locals():
         else:
             st.write('The customer is not likely to churn.')
 
-    st.subheader('Prediction Result Description')
-    st.write("""
-        This section displays the prediction result for individual customer details entered above. 
-        Click on the 'Predict' button to see whether the customer is likely to churn or not. 
-        The prediction result will be shown below the button.
-    """)
 
-    st.subheader('Batch Prediction')
-    st.write("""
-        Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
-        The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
-        Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
-    """)
+
 
     # File upload
     uploaded_file = st.file_uploader("📁 Choose a file (CSV or Excel)", type=["csv", "xlsx"])
@@ -121,6 +110,14 @@ if 'best_model' in locals() and 'scaler' in locals():
                     # Predict churn
                     predictions = best_model.predict(input_data_scaled)
                     data['Prediction'] = ['Churn' if pred == 1 else 'No Churn' for pred in predictions]
+
+                st.subheader('Batch Prediction')
+                st.write("""
+                    Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
+                    The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
+                    Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
+                """)                        
+                    
 
                     # Show predictions
                     st.write(data[['CustomerName', 'Prediction']])
