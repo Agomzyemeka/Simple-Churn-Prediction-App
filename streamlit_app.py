@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import os
 from io import BytesIO
-import xlsxwriter  # Import XlsxWriter explicitly
+import xlsxwriter
 
 # Load the saved model and scaler with error handling
 model_path = os.path.join(os.getcwd(), 'best_model_Random Forest.pkl')
@@ -75,7 +75,19 @@ if 'best_model' in locals() and 'scaler' in locals():
         else:
             st.write('The customer is not likely to churn.')
 
+    st.subheader('Prediction Result Description')
+    st.write("""
+        This section displays the prediction result for individual customer details entered above. 
+        Click on the 'Predict' button to see whether the customer is likely to churn or not. 
+        The prediction result will be shown below the button.
+    """)
+
     st.subheader('Batch Prediction')
+    st.write("""
+        Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
+        The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
+        Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
+    """)
 
     # File upload
     uploaded_file = st.file_uploader("📁 Choose a file (CSV or Excel)", type=["csv", "xlsx"])
