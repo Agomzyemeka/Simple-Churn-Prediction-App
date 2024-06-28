@@ -1,12 +1,26 @@
-#%%writefile app.py
-
 import streamlit as st
 import pandas as pd
 import joblib
+import os
+
+# Check current directory
+st.write("Current directory:", os.getcwd())
+st.write("Files in current directory:", os.listdir())
 
 # Load the saved model and scaler
-best_model = joblib.load('best_model_Random Forest.pkl')
-scaler = joblib.load('scaler.pkl')
+model_path = os.path.join(os.getcwd(), 'best_model_Random Forest.pkl')
+scaler_path = os.path.join(os.getcwd(), 'scaler.pkl')
+
+if not os.path.exists(model_path):
+    st.error(f"Model file '{model_path}' not found!")
+if not os.path.exists(scaler_path):
+    st.error(f"Scaler file '{scaler_path}' not found!")
+
+try:
+    best_model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+except Exception as e:
+    st.error(f"Error loading model: {str(e)}")
 
 # Streamlit UI
 st.title('Customer Churn Prediction')
@@ -45,7 +59,7 @@ input_data = pd.DataFrame({
     'EstimatedSalary': [EstimatedSalary]
 })
 
-# Standardize the input data
+# Standardize the input data (assuming scaler is already loaded)
 input_data_scaled = scaler.transform(input_data)
 
 # Predict churn
