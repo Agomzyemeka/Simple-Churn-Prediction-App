@@ -111,12 +111,12 @@ if 'best_model' in locals() and 'scaler' in locals():
                     predictions = best_model.predict(input_data_scaled)
                     data['Prediction'] = ['Churn' if pred == 1 else 'No Churn' for pred in predictions]
 
-                st.subheader('Batch Prediction')
-                st.write("""
-                    Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
-                    The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
-                    Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
-                """)                        
+                    st.subheader('Batch Prediction')
+                    st.write("""
+                        Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
+                        The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
+                        Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
+                    """)                        
                     
 
                     # Show predictions
