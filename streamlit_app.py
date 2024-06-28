@@ -3,11 +3,7 @@ import pandas as pd
 import joblib
 import os
 
-# Check current directory
-st.write("Current directory:", os.getcwd())
-st.write("Files in current directory:", os.listdir())
-
-# Load the saved model and scaler
+# Load the saved model and scaler with error handling
 model_path = os.path.join(os.getcwd(), 'best_model_Random Forest.pkl')
 scaler_path = os.path.join(os.getcwd(), 'scaler.pkl')
 
@@ -20,7 +16,7 @@ try:
     best_model = joblib.load(model_path)
     scaler = joblib.load(scaler_path)
 except Exception as e:
-    st.error(f"Error loading model: {str(e)}")
+    st.error(f"Error loading model or scaler: {str(e)}")
 
 # Streamlit UI
 st.title('Customer Churn Prediction')
@@ -45,25 +41,30 @@ Gender_dict = {'Male': 0, 'Female': 1}
 HasCrCard_dict = {'No': 0, 'Yes': 1}
 IsActiveMember_dict = {'No': 0, 'Yes': 1}
 
-# Create a dataframe for the input
-input_data = pd.DataFrame({
-    'CreditScore': [CreditScore],
-    'Geography': [Geography_dict[Geography]],
-    'Gender': [Gender_dict[Gender]],
-    'Age': [Age],
-    'Tenure': [Tenure],
-    'Balance': [Balance],
-    'NumOfProducts': [NumOfProducts],
-    'HasCrCard': [HasCrCard_dict[HasCrCard]],
-    'IsActiveMember': [IsActiveMember_dict[IsActiveMember]],
-    'EstimatedSalary': [EstimatedSalary]
-})
+# Check if scaler was successfully loaded before using it
+if 'scaler' in locals():
+    # Create a dataframe for the input
+    input_data = pd.DataFrame({
+        'CreditScore': [CreditScore],
+        'Geography': [Geography_dict[Geography]],
+        'Gender': [Gender_dict[Gender]],
+        'Age': [Age],
+        'Tenure': [Tenure],
+        'Balance': [Balance],
+        'NumOfProducts': [NumOfProducts],
+        'HasCrCard': [HasCrCard_dict[HasCrCard]],
+        'IsActiveMember': [IsActiveMember_dict[IsActiveMember]],
+        'EstimatedSalary': [EstimatedSalary]
+    })
 
-# Standardize the input data (assuming scaler is already loaded)
-input_data_scaled = scaler.transform(input_data)
+    # Standardize the input data (assuming scaler is already loaded)
+    input_data_scaled = scaler.transform(input_data)
 
-# Predict churn
-if st.button('Predict'):
-    prediction = best_model.predict(input_data_scaled)
-    result = 'Yes' if prediction[0] == 1 else 'No'
-    st.write(f'Will the customer churn? {result}')
+    # Predict churn
+    if st.button('Predict'):
+        prediction = best_model.predict(input_data_scaled)
+        result = 'Yes' if prediction[0] == 1 else 'No'
+        st.write(f'Will the customer churn? {result}')
+else:
+    st.error("Scaler could not be loaded. Please check the log for details.")
+
