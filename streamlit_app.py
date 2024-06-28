@@ -111,11 +111,9 @@ if 'best_model' in locals() and 'scaler' in locals():
                     predictions = best_model.predict(input_data_scaled)
                     data['Prediction'] = ['Churn' if pred == 1 else 'No Churn' for pred in predictions]
 
-                    st.subheader('Batch Prediction')
+                    st.subheader('Batch Prediction Result')
                     st.write("""
-                        Upload a CSV or Excel file containing customer details to predict churn for multiple customers at once. 
-                        The file must contain the following columns: CustomerName, CreditScore, Geography, Gender, Age, Tenure, 
-                        Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary.
+                        Below is the result of the predictions made on the multiple customers at once. Feel free to download prediction for further analysis.
                     """)                        
                     
 
@@ -136,4 +134,4 @@ if 'best_model' in locals() and 'scaler' in locals():
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
 
-st.write("This app was created by Chukwuemeka Agomoh. Thanks!")
+st.write("This app was created by Chukwuemeka Agomoh. Do not forget to leave the Github repo a star! Thanks!")
