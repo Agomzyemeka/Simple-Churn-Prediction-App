@@ -30,7 +30,7 @@ You can use the app to predict customer churn by inputting various customer deta
 
 ### Steps to Use the App
 1. **Input Values**: Fill in the required fields in the app.
-2. **Submit**: Click the submit button to get the prediction.
+2. **Predict**: Click the predict button to get the prediction.
 3. **View Results**: The app will display whether the customer is likely to churn or not.
 
 You can access the app using this link: [Simple Churn Prediction App](https://simple-churn-prediction-app.streamlit.app/).
