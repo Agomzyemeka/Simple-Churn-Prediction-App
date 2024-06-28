@@ -1,6 +1,6 @@
 # Simple Churn Prediction App
 
-![App Cover Image](assets/app_cover_image.jpg)
+<img src="assets/app_cover_image.jpg" alt="App Cover Image" width="400"/>
 
 <a href="https://www.freepik.com/free-vector/leadership-originality-concept-run-opportunities-growing-leadership-success-leadership-businessman-opportunities-leader-worker-vector-illustration_11059462.htm#query=customer%20churn&position=39&from_view=keyword&track=ais_user&uuid=5667185d-e7d7-4e17-aef2-b2f9d2db66c3">Image by macrovector</a> on Freepik
 
