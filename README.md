@@ -13,6 +13,7 @@ Welcome to the Simple Churn Prediction App! This app is designed to predict whet
 - **requirements.txt**: This file lists all the dependencies required to run the app.
 - **streamlit_app.py**: This is the main script that runs the Streamlit app.
 - **assets/**: This folder contains images and other static files used in the README or the app.
+- **generated_customer_data.csv**: Contains Sample batch data of customers to run Churn Prediction on using the app.
 
 ## Using the App
 You can use the app to predict customer churn by inputting various customer details. The app will then use the trained model to make a prediction. Here’s how you can use it:
@@ -56,7 +57,7 @@ Businesses can use this app to:
 We encourage you to try out the app and provide feedback. Let us know if you find it useful for your business and if there are any improvements you'd like to see.
 
 ## CODSOFT Project Repository
-If you want to see the CODSOFT repository where the notebook used for this project is stored, you can visit my GitHub repository [here](https://github.com/Agomzyemeka/Simple-Churn-Prediction-App).
+If you want to see my CODSOFT Task repository where the notebook used for training the Churn Prediction Model was trained, you can visit my GitHub repository [here](https://github.com/Agomzyemeka/Simple-Churn-Prediction-App).
 
 ## Contact
-Feel free to reach out if you have any questions or suggestions. Your feedback is highly appreciated!
+Feel free to reach out to me at <emyagomoh54321@gmail.com> if you have any questions or suggestions. Your feedback is highly appreciated!
