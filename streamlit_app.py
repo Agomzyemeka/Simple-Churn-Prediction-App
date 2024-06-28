@@ -26,7 +26,7 @@ except Exception as e:
 
 # Streamlit UI
 st.title('Customer Churn Prediction')
-st.write("Churn is the measure of how many customers stop using a product. This can be measured based on actual usage or failure to renew (when the product is sold using a subscription model).")
+st.markdown("<p style='text-align: center;'>Churn is the measure of how many customers stop using a product. This can be measured based on actual usage or failure to renew (when the product is sold using a subscription model)</p>", unsafe_allow_html=True)
 
 st.header('Enter customer details:')
 
