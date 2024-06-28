@@ -7,6 +7,8 @@
 ## Overview
 Welcome to the Simple Churn Prediction App! This app is designed to predict whether a customer will churn or not based on several features such as credit score, geography, gender, age, tenure, balance, number of products, credit card ownership, membership status, and estimated salary.
 
+[Churn](https://www.productplan.com/glossary/churn/) is the measure of how many customers stop using a product. This can be measured based on actual usage or failure to renew (when the product is sold using a subscription model).
+
 ## Repository Structure
 - **best_model_Random Forest.pkl**: This file contains the saved Random Forest model trained on the customer churn dataset.
 - **scaler.pkl**: This file contains the scaler used to standardize the features before feeding them into the model.
