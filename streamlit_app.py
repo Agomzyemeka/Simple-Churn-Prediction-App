@@ -77,14 +77,13 @@ if 'best_model' in locals() and 'scaler' in locals():
     st.subheader('Batch Prediction')
 
     # File upload
-    uploaded_file = st.file_uploader("Choose a file (CSV or Excel)", type=["csv", "xlsx"])
+    uploaded_file = st.file_uploader("📁 Choose a file (CSV or Excel)", type=["csv", "xlsx"])
     if uploaded_file is not None:
         try:
             if uploaded_file.name.endswith('.csv'):
                 data = pd.read_csv(uploaded_file)
             else:
                 data = pd.read_excel(uploaded_file)
-            
             st.write("File successfully uploaded!")
             st.write(data.head())
 
@@ -123,11 +122,7 @@ if 'best_model' in locals() and 'scaler' in locals():
                         return processed_data
 
                     df_xlsx = to_excel(data[['CustomerName', 'Prediction']])
-
-                    st.download_button(label='📥 Download Predictions',
-                                       data=df_xlsx,
-                                       file_name='churn_predictions.xlsx')
-
+                    st.download_button(label='📥 Download Predictions', data=df_xlsx, file_name='churn_predictions.xlsx')
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
 
