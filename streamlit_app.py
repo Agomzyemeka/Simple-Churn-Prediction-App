@@ -134,4 +134,6 @@ if 'best_model' in locals() and 'scaler' in locals():
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
 
-st.write("This app was created by Chukwuemeka Agomoh. Do not forget to leave the Github repo a star! Thanks!")
+
+st.markdown("<p style='text-align: center;'><em>This app was created by Chukwuemeka Agomoh. Do not forget to leave the Github repo a star ⭐! Thanks!</em></p>", unsafe_allow_html=True)
+
