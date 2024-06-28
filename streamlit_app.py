@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import os
 from io import BytesIO
+import xlsxwriter  # Import XlsxWriter explicitly
 
 # Load the saved model and scaler with error handling
 model_path = os.path.join(os.getcwd(), 'best_model_Random Forest.pkl')
@@ -117,12 +118,12 @@ if 'best_model' in locals() and 'scaler' in locals():
                         output = BytesIO()
                         writer = pd.ExcelWriter(output, engine='xlsxwriter')
                         df.to_excel(writer, index=False, sheet_name='Sheet1')
-                        writer.save()
+                        writer.save()  # Save the writer
                         processed_data = output.getvalue()
                         return processed_data
 
                     df_xlsx = to_excel(data[['CustomerName', 'Prediction']])
-                    st.download_button(label='📥 Download Predictions', data=df_xlsx, file_name='churn_predictions.xlsx')
+                    st.download_button(label='📥 Download Predictions', data=df_xlsx, file_name='churn_predictions.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
 
